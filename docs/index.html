@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Learn Harness by Example: 用 Python 从零搭建一个最小 Agent Harness。">
+    <title>Learn Harness by Example</title>
+    <link rel="stylesheet" href="./assets/site.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="章节导航">
+        <a class="brand" href="#/">
+          <span class="brand-mark">LH</span>
+          <span>
+            <strong>Learn Harness</strong>
+            <small>by Example</small>
+          </span>
+        </a>
+        <nav id="chapter-nav" class="chapter-nav"></nav>
+      </aside>
+
+      <main class="content">
+        <section class="intro-band">
+          <div>
+            <p class="eyebrow">Python · Agent Harness · Trace · Eval</p>
+            <h1>Learn Harness by Example</h1>
+            <p class="lead">用一个研究助手作为贯穿例子，从最小 Agent Loop 搭到可观测、可评测、可回放的 Agent Harness。</p>
+            <div class="hero-actions" aria-label="快速入口">
+              <a class="primary-link" href="#/00-case-study">先看一次失败</a>
+              <a class="secondary-link" href="#/10-final-project">查看最终骨架</a>
+            </div>
+          </div>
+          <div class="evidence-panel" aria-label="教程核心案例">
+            <strong>False positive case</strong>
+            <p>答案包含“运行、观察、评测、复现”，但 Trace 里没有 `tool.called`。</p>
+            <code>python3 examples/ch00_case_study.py</code>
+          </div>
+        </section>
+
+        <article id="article" class="article" aria-live="polite"></article>
+      </main>
+
+      <aside class="right-rail" aria-label="当前章节索引">
+        <section class="rail-section">
+          <h2>本章目录</h2>
+          <nav id="toc" class="toc"></nav>
+        </section>
+        <section class="rail-section">
+          <h2>运行命令</h2>
+          <pre id="run-command" class="mini-code">python3 examples/ch02_minimal_loop.py</pre>
+        </section>
+      </aside>
+    </div>
+
+    <script src="./assets/site.js"></script>
+  </body>
+</html>

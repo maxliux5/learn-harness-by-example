@@ -1,0 +1,8 @@
+{"name":"run.started","payload":{"task":"说明 eval 的作用"},"timestamp":"2026-05-25T00:00:00+00:00"}
+{"name":"model.called","payload":{"step":0,"message_count":1},"timestamp":"2026-05-25T00:00:01+00:00"}
+{"name":"model.returned","payload":{"step":0,"response_type":"tool_call"},"timestamp":"2026-05-25T00:00:01+00:00"}
+{"name":"tool.called","payload":{"tool":"search","args":{"query":"eval"}},"timestamp":"2026-05-25T00:00:02+00:00"}
+{"name":"tool.returned","payload":{"tool":"search","result":{"content":"Eval 是一组固定任务和透明评分规则。"}},"timestamp":"2026-05-25T00:00:02+00:00"}
+{"name":"model.called","payload":{"step":1,"message_count":2},"timestamp":"2026-05-25T00:00:03+00:00"}
+{"name":"model.returned","payload":{"step":1,"response_type":"final"},"timestamp":"2026-05-25T00:00:03+00:00"}
+{"name":"run.completed","payload":{"answer":"Eval 把 demo 变成可重复检查的基准。"},"timestamp":"2026-05-25T00:00:04+00:00"}

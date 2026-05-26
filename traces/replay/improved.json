@@ -1,0 +1,29 @@
+{
+  "config": {
+    "agent_version": "improved",
+    "provider": "mock",
+    "eval_version": "rules-v1"
+  },
+  "task": "解释 harness 的作用，必须基于资料回答",
+  "answer": "基于资料：Harness 负责运行、观察、评测和复现 Agent 行为。",
+  "trace": [
+    {
+      "name": "run.started",
+      "payload": {},
+      "timestamp": "2026-05-26T06:05:35.433590+00:00"
+    },
+    {
+      "name": "tool.called",
+      "payload": {
+        "tool": "search"
+      },
+      "timestamp": "2026-05-26T06:05:35.433592+00:00"
+    },
+    {
+      "name": "run.completed",
+      "payload": {},
+      "timestamp": "2026-05-26T06:05:35.433593+00:00"
+    }
+  ],
+  "score": 1.0
+}

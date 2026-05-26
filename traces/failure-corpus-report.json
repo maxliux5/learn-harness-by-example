@@ -1,0 +1,222 @@
+{
+  "detected": 9,
+  "total": 9,
+  "results": [
+    {
+      "name": "no_tool_call",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "Harness 很重要，因为它让 Agent 更可靠。",
+      "errors": [],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "run.completed"
+      ],
+      "detected": true,
+      "scenario": "no_tool_call",
+      "expected_diagnosis": "Trace 中没有 tool.called，说明失败来自模型策略或工具选择策略。"
+    },
+    {
+      "name": "wrong_tool_args",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "基于资料：没有找到相关资料。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+      "errors": [
+        "Tool search returned no usable result: 没有找到相关资料。"
+      ],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "tool.called",
+        "tool.returned",
+        "tool.unusable_result",
+        "model.called",
+        "model.returned",
+        "run.completed"
+      ],
+      "detected": true,
+      "scenario": "wrong_tool_args",
+      "expected_diagnosis": "Trace 有 tool.called 和 tool.unusable_result，应该检查工具参数。"
+    },
+    {
+      "name": "missing_tool_args",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "基于资料：工具参数错误：缺少 query。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+      "errors": [
+        "Tool search returned no usable result: 工具参数错误：缺少 query。"
+      ],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "tool.called",
+        "tool.returned",
+        "tool.unusable_result",
+        "model.called",
+        "model.returned",
+        "run.completed"
+      ],
+      "detected": true,
+      "scenario": "missing_tool_args",
+      "expected_diagnosis": "工具返回参数错误，harness 应该把它记录为 tool.unusable_result。"
+    },
+    {
+      "name": "empty_tool_result",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "基于资料： 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+      "errors": [
+        "Tool search returned no usable result: "
+      ],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "tool.called",
+        "tool.returned",
+        "tool.unusable_result",
+        "model.called",
+        "model.returned",
+        "run.completed"
+      ],
+      "detected": true,
+      "scenario": "empty_tool_result",
+      "expected_diagnosis": "Trace 证明工具被调用，但结果为空；修复方向是数据源、fallback 或停止策略。"
+    },
+    {
+      "name": "hallucinated_citation",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "根据 Smith 2027 的研究，Harness 可以自动保证 Agent 正确。",
+      "errors": [],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "run.completed"
+      ],
+      "detected": true,
+      "scenario": "hallucinated_citation",
+      "expected_diagnosis": "答案像引用了来源，但 Trace 没有工具证据，应该用 trace assertion 抓住。"
+    },
+    {
+      "name": "max_step_loop",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "",
+      "errors": [
+        "Max steps exceeded"
+      ],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "tool.called",
+        "tool.returned",
+        "model.called",
+        "model.returned",
+        "tool.called",
+        "tool.returned",
+        "model.called",
+        "model.returned",
+        "tool.called",
+        "tool.returned",
+        "run.failed"
+      ],
+      "detected": true,
+      "scenario": "max_step_loop",
+      "expected_diagnosis": "Trace 中有多次 tool.called，最后 run.failed=max_steps_exceeded，应该检查终止条件。"
+    },
+    {
+      "name": "schema_drift",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "",
+      "errors": [
+        "Invalid model response: missing supported type in {'kind': 'tool', 'name': 'search', 'arguments': {'query': 'agent harness'}}"
+      ],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "model.invalid_response"
+      ],
+      "detected": true,
+      "scenario": "schema_drift",
+      "expected_diagnosis": "模型返回 kind/name/arguments 而不是 type/tool/args，harness 应记录 model.invalid_response。"
+    },
+    {
+      "name": "provider_timeout",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "",
+      "errors": [
+        "Model error: mock provider timed out"
+      ],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.failed"
+      ],
+      "detected": true,
+      "scenario": "provider_timeout",
+      "expected_diagnosis": "模型调用抛出 TimeoutError，harness 应记录 model.failed 并保留 errors。"
+    },
+    {
+      "name": "eval_false_positive",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "missing_trace": [],
+      "forbidden_trace": [],
+      "missing_error_terms": [],
+      "answer": "Agent Harness 包含运行、观察、评测和复现，但这句话没有任何资料证据。",
+      "errors": [],
+      "trace_names": [
+        "run.started",
+        "model.called",
+        "model.returned",
+        "run.completed"
+      ],
+      "detected": true,
+      "scenario": "eval_false_positive",
+      "expected_diagnosis": "答案包含关键词，但没有 tool.called；需要 trace assertion 而不是只看文本。"
+    }
+  ]
+}

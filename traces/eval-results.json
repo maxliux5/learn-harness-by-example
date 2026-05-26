@@ -1,0 +1,41 @@
+{
+  "passed": 5,
+  "total": 5,
+  "results": [
+    {
+      "name": "harness role",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "answer": "Agent Harness 负责运行、观察、评测和复现 Agent 行为。"
+    },
+    {
+      "name": "demo vs eval",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "answer": "Demo 是单次展示，eval 是固定任务和评分规则，用来发现回归。"
+    },
+    {
+      "name": "trace value",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "answer": "Trace 是结构化事件流，记录模型调用、工具调用和错误。"
+    },
+    {
+      "name": "provider abstraction",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "answer": "Provider 抽象让 harness 可以替换 mock 或真实模型。"
+    },
+    {
+      "name": "replay value",
+      "passed": true,
+      "missing_terms": [],
+      "forbidden_terms": [],
+      "answer": "Replay 保存任务、配置、答案和 trace，用来复现与对比。"
+    }
+  ]
+}

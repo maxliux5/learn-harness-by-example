@@ -1,0 +1,104 @@
+[
+  {
+    "id": "no_tool_call",
+    "title": "用户要求基于资料回答，但模型直接给结论",
+    "scenario": "no_tool_call",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "Trace 中没有 tool.called，说明失败来自模型策略或工具选择策略。",
+    "eval": {
+      "required_terms": ["Harness"],
+      "trace_must_not_include": ["tool.called"]
+    }
+  },
+  {
+    "id": "wrong_tool_args",
+    "title": "模型调用了工具，但 query 错误导致没有资料",
+    "scenario": "wrong_tool_args",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "Trace 有 tool.called 和 tool.unusable_result，应该检查工具参数。",
+    "eval": {
+      "required_terms": ["没有找到相关资料"],
+      "expected_error_terms": ["没有找到相关资料"],
+      "trace_must_include": ["tool.called", "tool.returned", "tool.unusable_result"]
+    }
+  },
+  {
+    "id": "missing_tool_args",
+    "title": "工具参数缺失",
+    "scenario": "missing_tool_args",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "工具返回参数错误，harness 应该把它记录为 tool.unusable_result。",
+    "eval": {
+      "required_terms": ["缺少 query"],
+      "expected_error_terms": ["缺少 query"],
+      "trace_must_include": ["tool.called", "tool.returned", "tool.unusable_result"]
+    }
+  },
+  {
+    "id": "empty_tool_result",
+    "title": "工具返回空结果",
+    "scenario": "empty_tool_result",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "Trace 证明工具被调用，但结果为空；修复方向是数据源、fallback 或停止策略。",
+    "eval": {
+      "expected_error_terms": ["no usable result"],
+      "trace_must_include": ["tool.called", "tool.returned", "tool.unusable_result"]
+    }
+  },
+  {
+    "id": "hallucinated_citation",
+    "title": "模型编造来源",
+    "scenario": "hallucinated_citation",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "答案像引用了来源，但 Trace 没有工具证据，应该用 trace assertion 抓住。",
+    "eval": {
+      "required_terms": ["Smith 2027", "自动保证"],
+      "trace_must_not_include": ["tool.called"]
+    }
+  },
+  {
+    "id": "max_step_loop",
+    "title": "模型一直调用工具，无法收敛",
+    "scenario": "max_step_loop",
+    "max_steps": 3,
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "Trace 中有多次 tool.called，最后 run.failed=max_steps_exceeded，应该检查终止条件。",
+    "eval": {
+      "expected_error_terms": ["Max steps exceeded"],
+      "trace_must_include": ["run.failed", "tool.called"]
+    }
+  },
+  {
+    "id": "schema_drift",
+    "title": "模型响应结构漂移",
+    "scenario": "schema_drift",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "模型返回 kind/name/arguments 而不是 type/tool/args，harness 应记录 model.invalid_response。",
+    "eval": {
+      "expected_error_terms": ["Invalid model response"],
+      "trace_must_include": ["model.invalid_response"]
+    }
+  },
+  {
+    "id": "provider_timeout",
+    "title": "Provider 超时",
+    "scenario": "provider_timeout",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "模型调用抛出 TimeoutError，harness 应记录 model.failed 并保留 errors。",
+    "eval": {
+      "expected_error_terms": ["mock provider timed out"],
+      "trace_must_include": ["model.failed"]
+    }
+  },
+  {
+    "id": "eval_false_positive",
+    "title": "关键词 Eval 被漂亮话骗过",
+    "scenario": "eval_false_positive",
+    "task": "解释 agent harness 的作用，必须基于资料回答",
+    "expected_diagnosis": "答案包含关键词，但没有 tool.called；需要 trace assertion 而不是只看文本。",
+    "eval": {
+      "required_terms": ["运行", "观察", "评测", "复现"],
+      "trace_must_not_include": ["tool.called"]
+    }
+  }
+]

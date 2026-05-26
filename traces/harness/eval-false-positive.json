@@ -1,0 +1,68 @@
+{
+  "config": {
+    "agent_version": "eval_false_positive",
+    "provider": "scenario-model",
+    "eval_version": "rules-v2"
+  },
+  "task": "解释 agent harness 的作用，必须基于资料回答",
+  "answer": "Agent Harness 包含运行、观察、评测和复现，但这句话没有任何资料证据。",
+  "errors": [],
+  "trace": [
+    {
+      "name": "run.started",
+      "payload": {
+        "task": "解释 agent harness 的作用，必须基于资料回答"
+      },
+      "timestamp": "2026-05-25T06:17:53.513044+00:00"
+    },
+    {
+      "name": "model.called",
+      "payload": {
+        "step": 0,
+        "message_count": 1
+      },
+      "timestamp": "2026-05-25T06:17:53.513198+00:00"
+    },
+    {
+      "name": "model.returned",
+      "payload": {
+        "step": 0,
+        "response_type": "final",
+        "raw": {
+          "type": "final",
+          "content": "Agent Harness 包含运行、观察、评测和复现，但这句话没有任何资料证据。"
+        }
+      },
+      "timestamp": "2026-05-25T06:17:53.513204+00:00"
+    },
+    {
+      "name": "run.completed",
+      "payload": {
+        "answer": "Agent Harness 包含运行、观察、评测和复现，但这句话没有任何资料证据。"
+      },
+      "timestamp": "2026-05-25T06:17:53.513207+00:00"
+    }
+  ],
+  "eval_report": {
+    "name": "requires evidence",
+    "passed": false,
+    "missing_terms": [
+      "基于"
+    ],
+    "forbidden_terms": [],
+    "missing_trace": [
+      "tool.called",
+      "tool.returned"
+    ],
+    "forbidden_trace": [],
+    "missing_error_terms": [],
+    "answer": "Agent Harness 包含运行、观察、评测和复现，但这句话没有任何资料证据。",
+    "errors": [],
+    "trace_names": [
+      "run.started",
+      "model.called",
+      "model.returned",
+      "run.completed"
+    ]
+  }
+}

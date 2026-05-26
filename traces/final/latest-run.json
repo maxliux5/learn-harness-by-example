@@ -1,0 +1,138 @@
+{
+  "config": {
+    "agent_version": "chapter-10",
+    "provider": "scenario-model",
+    "eval_version": "rules-v2"
+  },
+  "task": "解释 agent harness 的作用，必须基于资料回答",
+  "answer": "基于资料：Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+  "errors": [],
+  "trace": [
+    {
+      "name": "run.started",
+      "payload": {
+        "task": "解释 agent harness 的作用，必须基于资料回答"
+      },
+      "timestamp": "2026-05-26T06:05:35.546639+00:00"
+    },
+    {
+      "name": "model.called",
+      "payload": {
+        "step": 0,
+        "message_count": 1
+      },
+      "timestamp": "2026-05-26T06:05:35.546795+00:00"
+    },
+    {
+      "name": "model.returned",
+      "payload": {
+        "step": 0,
+        "response_type": "tool_call",
+        "raw": {
+          "type": "tool_call",
+          "tool": "search",
+          "args": {
+            "query": "agent harness"
+          }
+        }
+      },
+      "timestamp": "2026-05-26T06:05:35.546803+00:00"
+    },
+    {
+      "name": "tool.called",
+      "payload": {
+        "tool": "search",
+        "args": {
+          "query": "agent harness"
+        }
+      },
+      "timestamp": "2026-05-26T06:05:35.546807+00:00"
+    },
+    {
+      "name": "tool.returned",
+      "payload": {
+        "tool": "search",
+        "result": {
+          "content": "Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。",
+          "ok": true
+        }
+      },
+      "timestamp": "2026-05-26T06:05:35.546812+00:00"
+    },
+    {
+      "name": "model.called",
+      "payload": {
+        "step": 1,
+        "message_count": 2
+      },
+      "timestamp": "2026-05-26T06:05:35.546814+00:00"
+    },
+    {
+      "name": "model.returned",
+      "payload": {
+        "step": 1,
+        "response_type": "final",
+        "raw": {
+          "type": "final",
+          "content": "基于资料：Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。"
+        }
+      },
+      "timestamp": "2026-05-26T06:05:35.546819+00:00"
+    },
+    {
+      "name": "run.completed",
+      "payload": {
+        "answer": "基于资料：Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。"
+      },
+      "timestamp": "2026-05-26T06:05:35.546821+00:00"
+    }
+  ],
+  "eval_report": {
+    "passed": 2,
+    "total": 2,
+    "results": [
+      {
+        "name": "harness basics",
+        "passed": true,
+        "missing_terms": [],
+        "forbidden_terms": [],
+        "missing_trace": [],
+        "forbidden_trace": [],
+        "missing_error_terms": [],
+        "answer": "基于资料：Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+        "errors": [],
+        "trace_names": [
+          "run.started",
+          "model.called",
+          "model.returned",
+          "tool.called",
+          "tool.returned",
+          "model.called",
+          "model.returned",
+          "run.completed"
+        ]
+      },
+      {
+        "name": "requires tool evidence",
+        "passed": true,
+        "missing_terms": [],
+        "forbidden_terms": [],
+        "missing_trace": [],
+        "forbidden_trace": [],
+        "missing_error_terms": [],
+        "answer": "基于资料：Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+        "errors": [],
+        "trace_names": [
+          "run.started",
+          "model.called",
+          "model.returned",
+          "tool.called",
+          "tool.returned",
+          "model.called",
+          "model.returned",
+          "run.completed"
+        ]
+      }
+    ]
+  }
+}

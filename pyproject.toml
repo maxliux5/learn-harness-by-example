@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "learn-harness-by-example"
+version = "0.1.0"
+description = "A small, runnable tutorial skeleton for agent harness design."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT for code, CC BY 4.0 for tutorial text" }
+authors = [
+  { name = "Learn Harness by Example contributors" }
+]
+keywords = ["agent", "harness", "eval", "trace", "replay", "tutorial"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Testing",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = []
+
+[project.scripts]
+learn-harness = "harness.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["harness*"]

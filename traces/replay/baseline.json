@@ -1,0 +1,22 @@
+{
+  "config": {
+    "agent_version": "baseline",
+    "provider": "mock",
+    "eval_version": "rules-v1"
+  },
+  "task": "解释 harness 的作用，必须基于资料回答",
+  "answer": "Harness 让 Agent 更可靠。",
+  "trace": [
+    {
+      "name": "run.started",
+      "payload": {},
+      "timestamp": "2026-05-26T06:05:35.433422+00:00"
+    },
+    {
+      "name": "run.completed",
+      "payload": {},
+      "timestamp": "2026-05-26T06:05:35.433587+00:00"
+    }
+  ],
+  "score": 0.4
+}

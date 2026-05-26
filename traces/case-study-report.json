@@ -1,0 +1,42 @@
+{
+  "task": "解释 agent harness 的作用，必须基于资料回答",
+  "false_positive": {
+    "answer": "Agent Harness 包含运行、观察、评测和复现，但这句话没有任何资料证据。",
+    "keyword_only_passed": true,
+    "evidence_eval_passed": false,
+    "missing_trace": [
+      "tool.called",
+      "tool.returned"
+    ],
+    "trace_names": [
+      "run.started",
+      "model.called",
+      "model.returned",
+      "run.completed"
+    ]
+  },
+  "improved": {
+    "answer": "基于资料：Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。 总结：Agent Harness 让 Agent 可运行、可观察、可评测、可复现。",
+    "evidence_eval_passed": true,
+    "trace_names": [
+      "run.started",
+      "model.called",
+      "model.returned",
+      "tool.called",
+      "tool.returned",
+      "model.called",
+      "model.returned",
+      "run.completed"
+    ]
+  },
+  "compare": {
+    "left_version": "eval_false_positive",
+    "right_version": "happy_path",
+    "answer_changed": true,
+    "left_errors": 0,
+    "right_errors": 0,
+    "tool_call_delta": 1,
+    "completed_delta": 0
+  },
+  "lesson": "关键词能检查答案表面，Trace assertion 才能检查 Agent 是否真的走了证据路径。"
+}
