@@ -114,6 +114,29 @@ python3 -m harness diagnose
 
 你会得到 `detected/total` 报告。这里的 detected 不是说失败通过了，而是说 harness 成功抓住了这个失败信号。
 
+## Ship It
+
+本章带走的 artifact 是 failure case 的写法：
+
+```json
+{
+  "task": "...",
+  "expected_diagnosis": "...",
+  "eval": {
+    "trace_must_include": ["tool.called"],
+    "required_terms": ["基于"]
+  }
+}
+```
+
+它的价值是把一次失败从聊天记录里提炼出来，变成可以长期复跑的工程资产。`cases/failure_corpus.json` 就是这个思想的集合版。
+
+## Exercises
+
+1. 给 `cases/failure_corpus.json` 增加一个“工具返回过期资料”的 case。
+2. 把 `eval_false_positive` 的规则改弱，观察它为什么可能不再被抓住。
+3. 使用 [`outputs/prompt-failure-to-eval.md`](../outputs/prompt-failure-to-eval.md) 把一次失败描述改写成 EvalCase。
+
 ## 常见误区
 
 - 看到失败后立刻改 prompt，没有把失败写成 case。

@@ -140,6 +140,29 @@ learn-harness run --scenario happy_path
 - 更强 Eval：保存 per-case Trace，加入人工评分或模型辅助评分。
 - Replay 存储：把当前 JSON artifact 扩展为 JSONL、SQLite 或对象存储。
 
+## Ship It
+
+本章带走的 artifact 是完整的最小 harness package：
+
+```text
+harness/
+├── core.py
+├── models.py
+├── tools.py
+├── state.py
+├── eval.py
+├── replay.py
+└── failures.py
+```
+
+它不是生产框架，但已经具备 fork 价值：你可以保留接口边界，替换 Provider、Tool、EvalCase 和存储方式。真正的课程终点不是“看懂一篇文章”，而是拿到一个能迁移到自己 agent 项目的工程骨架。
+
+## Exercises
+
+1. 新增一个 `OpenAICompatibleModelClient` 文件，但不要改 `ResearchAgent.run`。
+2. 给 `TraceEvent` 增加 `duration_ms`，并思考哪些事件能自然记录耗时。
+3. 用 [`outputs/skill-agent-harness-reviewer.md`](../outputs/skill-agent-harness-reviewer.md) 审查你自己的 agent 项目，列出最缺的两个 Trace event。
+
 ## 常见误区
 
 - 看到最终结构后立刻抽象成通用框架，反而让学习成本变高。

@@ -109,6 +109,28 @@ state.errors.append(...)
 2. 删除 `state.messages.append({"role": "assistant", ...})`，思考 Replay 时会缺少什么。
 3. 给 `RunState` 增加 `steps: int`，观察它和 Trace event 的职责差异。
 
+## Ship It
+
+本章带走的 artifact 是一份可序列化的 run state：
+
+```json
+{
+  "task": "...",
+  "messages": [],
+  "tool_calls": [],
+  "final_answer": "...",
+  "errors": []
+}
+```
+
+这份 artifact 是后续 Eval 和 Replay 的数据底座。它让一次运行可以被保存、测试、复制到 issue，也可以被另一个脚本重新读取。一个字段如果不能帮助复盘这一次 run，就不应该急着放进 `RunState`。
+
+## Exercises
+
+1. 给 `RunState` 增加 `started_at` 和 `finished_at`，然后判断时间信息应该放在 state 还是 trace。
+2. 把 `tool_calls` 中的 `result` 删掉，只保留工具名和参数，观察 debug 能力损失在哪里。
+3. 写一个 `state_to_summary(state)` 函数，只输出 task、answer、error_count，体会状态对象和展示层的边界。
+
 ## 常见误区
 
 - 只保存最终答案，导致失败时没有排查线索。

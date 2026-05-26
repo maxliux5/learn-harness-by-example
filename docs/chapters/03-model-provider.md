@@ -96,6 +96,24 @@ return self.model.complete(messages)["content"]
 
 这些改动会引出一个原则：Provider 可以暴露更多元数据，但 Agent 应该只依赖自己真正需要的稳定字段。
 
+## Ship It
+
+本章带走的 artifact 是 `ModelClient` 边界：
+
+```python
+class ModelClient(Protocol):
+    def complete(self, messages: list[dict]) -> dict:
+        ...
+```
+
+这个边界让教程后续可以一直使用 deterministic provider。它也让你在真实项目里先写 mock、echo、replay provider，再接真实 SDK。Provider 抽象的成熟标志不是支持最多厂商，而是 Agent Loop 不需要知道自己正在用哪个厂商。
+
+## Exercises
+
+1. 新增一个 `FailingModelClient`，让它抛出异常，观察当前章节是否能处理这个失败。
+2. 新增 `usage` 字段，思考它应该进入 response、Trace，还是 Run Record。
+3. 把 `EchoModelClient` 用作 debug provider，检查 messages 是否包含你预期的用户任务。
+
 ## 常见误区
 
 - Provider 抽象过早追求完整，第一版就塞进 streaming、tool calling、token usage 和所有厂商差异。

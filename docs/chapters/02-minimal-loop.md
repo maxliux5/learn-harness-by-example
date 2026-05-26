@@ -101,6 +101,22 @@ python3 examples/ch02_minimal_loop.py
 2. 给 `MockModelClient.complete` 增加一个 `raw` 字段，再思考 `Agent.run` 是否应该暴露它。
 3. 把返回值改成 dict，感受为什么第 05 章需要正式引入 `RunState`。
 
+## Ship It
+
+本章带走的 artifact 是第一个稳定入口：
+
+```python
+answer = agent.run(task)
+```
+
+它看起来很小，但这是后面所有能力的挂载点。Provider 替换、Tool 调度、RunState、Trace、Eval 和 Replay 都不会要求调用方改成另一套入口。一个好的 harness 先把外部 API 固定下来，再慢慢丰富内部行为。
+
+## Exercises
+
+1. 给 `Agent.run` 增加 `system_message` 参数，再判断这会不会污染公共入口。
+2. 让 `MockModelClient` 返回 dict 而不是字符串，思考返回值契约应该由谁定义。
+3. 写一个第二个调用方函数，只依赖 `agent.run(task)`，验证调用方不需要理解 Provider 细节。
+
 ## 常见误区
 
 - 一开始就接真实模型 API，结果学习 Agent Loop 时被环境问题打断。

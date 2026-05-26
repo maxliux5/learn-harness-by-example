@@ -100,6 +100,22 @@ traces/eval-results.json
 2. 给某个 case 增加新的 `forbidden_terms`，检查答案是否出现禁用词。
 3. 把 Eval 报告保存成文件，思考第 09 章如何把它放进 Run Record。
 
+## Ship It
+
+本章带走的 artifact 是 Eval report：
+
+```text
+traces/eval-results.json
+```
+
+它把“我觉得不错”改成了可以复跑的检查结果。即使规则很朴素，也已经包含 case 名称、缺失词、禁用词和答案。这个报告未来会被 Run Record 收进去，成为版本对比的一部分。
+
+## Exercises
+
+1. 新增一个 case，要求答案同时解释 `RunState` 和 `Trace` 的区别。
+2. 写一个会被关键词骗过的答案，然后给 case 增加 `trace_must_include` 规则。
+3. 给 Eval report 增加 `eval_version`，思考历史结果如何保持可比。
+
 ## 常见误区
 
 - 用一个很大的综合 case 检查所有能力，失败后无法定位。

@@ -4,6 +4,17 @@
 
 这一章先不介绍接口，也不讲目录结构。我们直接看一个研究助手的失败：它给出了一段听起来正确的答案，甚至能通过关键词 Eval，但 Trace 证明它根本没有查资料。
 
+## 学习目标
+
+读完本章，你应该能先建立这套教程的判断方式：
+
+- 判断一个 Agent 答案是否有行为证据，而不是只看文本是否顺眼。
+- 解释 keyword-only eval 为什么会产生 false positive。
+- 通过 Trace 判断一次 run 是否真的调用了工具。
+- 读懂 replay compare 中 `tool_call_delta` 这类行为变化。
+
+本章是整套课程的 worked sample。后面的章节会把这里出现的 Trace、Eval、Replay 和 failure corpus 拆开实现。
+
 ## 失败现场
 
 用户任务是：
@@ -118,6 +129,30 @@ run.completed
 这段对比的意义是：答案变了，工具调用增加了，run 仍然正常完成。它比“我感觉新版好一点”更适合进入 code review、issue 讨论和发布说明。
 
 脚本也会把报告保存为 [`traces/case-study-report.json`](../traces/case-study-report.json)。这份 artifact 很适合放在 issue 或 PR 里讨论，因为它同时包含 false positive、improved run 和 replay compare。
+
+## Ship It
+
+本章带走的 artifact 是：
+
+```text
+traces/case-study-report.json
+```
+
+它不是普通日志，而是一份可以复用的诊断样本。你可以把它贴到 PR 里，让评审者同时看到：
+
+- false positive 的最终答案。
+- keyword-only eval 为什么通过。
+- evidence eval 为什么失败。
+- fixed run 多出了哪些 Trace event。
+- replay compare 如何证明行为发生变化。
+
+这和参考课程里“每课产出一个 prompt / skill / agent / MCP server”的思想是一致的：读完不是只获得概念，而是留下一个能继续用于沟通和调试的东西。
+
+## Exercises
+
+1. 把 `examples/ch00_case_study.py` 里的 `TERMS` 删掉一个词，观察 keyword-only eval 是否仍能说明问题。
+2. 把 evidence case 里的 `trace_must_include` 改成只要求 `tool.called`，思考为什么 `tool.returned` 也重要。
+3. 把 `happy_path` 改成 `hallucinated_citation`，观察一个“看起来有引用”的答案如何被 Trace 拆穿。
 
 ## 这条主线如何贯穿 10 章
 

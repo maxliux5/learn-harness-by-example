@@ -86,6 +86,28 @@ python3 examples/ch01_why_harness.py
 
 这些实验的目的不是增加功能，而是训练一种习惯：只要某个信息会影响结果，就应该考虑是否进入 harness 的结构化记录。
 
+## Ship It
+
+本章带走的 artifact 是一个最小 Trace 形状：
+
+```json
+{
+  "answer": "...",
+  "trace": [
+    {"name": "run.started", "payload": {"question": "..."}},
+    {"name": "model.completed", "payload": {"provider": "mock"}}
+  ]
+}
+```
+
+这份 artifact 的价值不在完整，而在建立边界：最终答案和运行证据是两类不同数据。从这一章开始，每次新增 harness 能力，都应该让 artifact 变得更能解释一次 run。
+
+## Exercises
+
+1. 给 `harnessed_research` 增加 `prompt.built` 事件，记录 message 数量。
+2. 让 naive 版本和 harnessed 版本返回同一句答案，比较两者在 debug 能力上的差异。
+3. 把 Trace 中的事件名改成不稳定的自然语言句子，思考后续 Eval 为什么会难以依赖它。
+
 ## 常见误区
 
 - 误区一：只要模型足够强，就不需要 harness。模型越强，行为越复杂，越需要可观察性。

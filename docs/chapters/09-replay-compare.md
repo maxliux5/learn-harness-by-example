@@ -118,6 +118,23 @@ traces/replay/improved.json
 2. 给 record 增加 `eval_version`，说明评分规则来自哪个版本。
 3. 给 trace 增加 `tool.returned`，比较两个版本是否拿到不同资料。
 
+## Ship It
+
+本章带走的 artifact 是两份可比较的 Run Record：
+
+```text
+traces/replay/baseline.json
+traces/replay/improved.json
+```
+
+它们让 code review 不再只讨论“新版答案好像更好”，而是讨论具体变化：工具调用增加了吗，分数为什么变化，Trace 路径是否退化，配置是否可比。
+
+## Exercises
+
+1. 增加第三份 `regressed.json`，让它分数高但没有工具调用，然后扩展 `compare` 给出警告。
+2. 把 `score` 改成 per-case eval report，思考 compare 输出应该如何展示。
+3. 用 `python3 -m harness compare traces/replay/baseline.json traces/replay/improved.json` 对比最终 package 的 compare 行为。
+
 ## 常见误区
 
 - 只保存最终答案，导致无法解释为什么分数变化。

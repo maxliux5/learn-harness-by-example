@@ -113,6 +113,22 @@ for _ in range(4):
 2. 把 query 改成不存在的词，观察 `search` 返回“没有找到相关资料。”后最终答案如何变化。
 3. 把 `range(4)` 改成 `range(1)`，体会 max steps 为什么是 Agent Loop 的基本保护。
 
+## Ship It
+
+本章带走的 artifact 是一个最小 Tool 协议：
+
+```python
+Tool(name="search", description="Search local knowledge base", handler=search)
+```
+
+它把外部能力从“代码里随手调一个函数”升级成“可注册、可定位、可记录的工具”。后续 Trace 可以记录 `tool.called` 和 `tool.returned`，Eval 可以要求这些事件出现，Replay 可以比较不同版本的工具调用次数。
+
+## Exercises
+
+1. 增加一个 `calculator` Tool，并让模型先调用它再回答。
+2. 让 `search` 返回 `{"ok": False, "content": "..."}`，设计 Trace 里应该如何区分工具失败和工具无结果。
+3. 给 Tool 增加 `schema` 字段，思考它属于 Tool 定义，还是属于 Provider 的 function-calling 适配。
+
 ## 常见误区
 
 - 把 Tool 当普通函数调用，不记录工具名、参数和结果，后续无法排查证据链。
