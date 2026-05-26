@@ -235,6 +235,76 @@ h1 {
   font-size: 0.82rem;
 }
 
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  max-width: 1080px;
+  margin: 0 auto 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+}
+
+.stats-strip div {
+  min-width: 0;
+  padding: 16px 18px;
+  background: var(--surface);
+}
+
+.stats-strip strong,
+.stats-strip span {
+  display: block;
+}
+
+.stats-strip strong {
+  margin-bottom: 2px;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.stats-strip span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.course-contract {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  max-width: 1080px;
+  margin: 0 auto 28px;
+}
+
+.course-contract div {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.course-contract span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--amber);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.course-contract strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.course-contract p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
 .article {
   max-width: 900px;
   margin: 0 auto;
@@ -430,6 +500,11 @@ code {
     display: block;
   }
 
+  .stats-strip,
+  .course-contract {
+    grid-template-columns: 1fr 1fr;
+  }
+
   h1 {
     font-size: 2rem;
   }
@@ -444,5 +519,12 @@ code {
 
   .chapter-footer a {
     max-width: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .stats-strip,
+  .course-contract {
+    grid-template-columns: 1fr;
   }
 }

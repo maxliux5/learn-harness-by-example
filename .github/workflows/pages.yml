@@ -33,7 +33,7 @@ jobs:
       - name: Prepare Pages artifact
         run: |
           mkdir public
-          cp -R docs examples cases traces harness tests README.md LICENSE.md CONTRIBUTING.md pyproject.toml index.html public/
+          cp -R docs examples cases traces outputs harness tests README.md ROADMAP.md CHAPTER_TEMPLATE.md LICENSE.md CONTRIBUTING.md pyproject.toml index.html public/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
