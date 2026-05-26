@@ -17,7 +17,9 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     run_parser = subparsers.add_parser("run", help="Run one scenario and save a run record.")
+    run_parser.add_argument("--provider", choices=["scenario", "minimax"], default="scenario")
     run_parser.add_argument("--scenario", default="happy_path")
+    run_parser.add_argument("--model", default=None, help="Real provider model name, for example MiniMax-M2.7.")
     run_parser.add_argument("--task", default="解释 agent harness 的作用，必须基于资料回答")
     run_parser.add_argument("--output", default="traces/harness/latest-run.json")
     run_parser.add_argument("--no-save", action="store_true")
@@ -35,7 +37,16 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "run":
-        agent = build_agent(scenario=args.scenario)
+        if args.provider == "minimax":
+            from .providers import MiniMaxModelClient
+
+            agent = build_agent(model=MiniMaxModelClient.from_env(model=args.model), provider="minimax")
+            provider_label = "minimax"
+            agent_version = args.model or "MiniMax-M2.7"
+        else:
+            agent = build_agent(scenario=args.scenario)
+            provider_label = "scenario-model"
+            agent_version = args.scenario
         state = agent.run(args.task)
         report = evaluate_run(
             state,
@@ -48,7 +59,7 @@ def main() -> None:
         )
         record = make_run_record(
             state,
-            config={"agent_version": args.scenario, "provider": "scenario-model", "eval_version": "rules-v2"},
+            config={"agent_version": agent_version, "provider": provider_label, "eval_version": "rules-v2"},
             eval_report=report,
         )
         if not args.no_save:
@@ -82,4 +93,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

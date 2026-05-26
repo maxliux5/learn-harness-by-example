@@ -18,7 +18,7 @@ Total estimated time: ~6.5 hours.
 | 07 | Eval | ✅ | ~45 min | `python3 examples/ch07_eval.py` | eval report |
 | 08 | Failure-driven improvement | ✅ | ~45 min | `python3 examples/ch08_failure_driven.py` | failure checks |
 | 09 | Replay and comparison | ✅ | ~40 min | `python3 examples/ch09_replay_compare.py` | baseline / improved records |
-| 10 | Minimal Harness project | ✅ | ~55 min | `python3 examples/ch10_research_harness.py` | `harness/` package and CLI |
+| 10 | Minimal Harness project | ✅ | ~55 min | `python3 examples/ch10_research_harness.py` | `harness/` package, CLI, MiniMax provider |
 
 ## Course-Wide Checks
 
@@ -32,13 +32,21 @@ python3 -m harness eval
 node --check docs/assets/site.js
 ```
 
+Optional real-provider smoke test:
+
+```bash
+python3 -m harness run --provider minimax --model MiniMax-M2.7 --output traces/minimax/latest-run.json
+python3 examples/minimax_smoke.py
+```
+
+Set `MINIMAX_TIMEOUT` or `MINIMAX_RETRIES` if the provider is slow.
+
 ## Next Depth Upgrades
 
 These are deliberately not required for the current v1, but they are the most valuable follow-ups:
 
 | Upgrade | Why it would matter |
 | --- | --- |
-| Optional OpenAI-compatible provider | Shows the same harness boundary with a real model |
 | More realistic search corpus | Makes tool evidence less toy-like |
 | Trace viewer page | Lets readers inspect events without opening raw JSON |
 | Per-chapter exercises | Helps readers prove understanding |

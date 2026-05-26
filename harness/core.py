@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .models import ModelClient, ScenarioModel
+from .providers import MiniMaxModelClient
 from .state import RunState
 from .tools import Tool, default_tools
 
@@ -77,5 +78,12 @@ class ResearchAgent:
         return state
 
 
-def build_agent(scenario: str = "happy_path", max_steps: int = 4) -> ResearchAgent:
-    return ResearchAgent(model=ScenarioModel(scenario=scenario), tools=default_tools(), max_steps=max_steps)
+def build_agent(scenario: str = "happy_path", max_steps: int = 4, provider: str = "scenario", model: ModelClient | None = None) -> ResearchAgent:
+    if model is None:
+        if provider == "scenario":
+            model = ScenarioModel(scenario=scenario)
+        elif provider == "minimax":
+            model = MiniMaxModelClient.from_env()
+        else:
+            raise ValueError(f"Unknown provider: {provider}")
+    return ResearchAgent(model=model, tools=default_tools(), max_steps=max_steps)

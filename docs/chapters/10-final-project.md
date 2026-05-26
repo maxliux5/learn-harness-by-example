@@ -114,6 +114,23 @@ learn-harness run --scenario happy_path
 
 `pyproject.toml` 只注册了一个很薄的入口，真正逻辑仍然在 `harness/` 包里。这样做的好处是：读教程时可以直接跑 `python3 -m harness`，迁移到自己项目时也可以拥有一个正式 CLI。
 
+如果你已经设置了 MiniMax key，也可以跑真实 provider：
+
+```bash
+export MINIMAX_API_KEY=...
+python3 -m harness run --provider minimax --model MiniMax-M2.7 --output traces/minimax/latest-run.json
+python3 examples/minimax_smoke.py
+```
+
+真实 provider 仍然遵守同一个 harness 结构：Agent 先记录 `tool.called` / `tool.returned`，再把本地资料交给 MiniMax 生成最终答案。这样真实模型试跑也能被 Trace 和 Eval 检查。
+
+如果网络较慢，可以设置：
+
+```bash
+export MINIMAX_TIMEOUT=90
+export MINIMAX_RETRIES=2
+```
+
 ## 观察与改进
 
 最终示例已经具备一个最小 Agent Harness 的骨架：
@@ -148,6 +165,7 @@ learn-harness run --scenario happy_path
 harness/
 ├── core.py
 ├── models.py
+├── providers.py
 ├── tools.py
 ├── state.py
 ├── eval.py
@@ -155,11 +173,11 @@ harness/
 └── failures.py
 ```
 
-它不是生产框架，但已经具备 fork 价值：你可以保留接口边界，替换 Provider、Tool、EvalCase 和存储方式。真正的课程终点不是“看懂一篇文章”，而是拿到一个能迁移到自己 agent 项目的工程骨架。
+它不是生产框架，但已经具备 fork 价值：你可以保留接口边界，替换 Provider、Tool、EvalCase 和存储方式。`providers.py` 展示了如何把真实 MiniMax API 接进同一个 `ModelClient` 协议。真正的课程终点不是“看懂一篇文章”，而是拿到一个能迁移到自己 agent 项目的工程骨架。
 
 ## Exercises
 
-1. 新增一个 `OpenAICompatibleModelClient` 文件，但不要改 `ResearchAgent.run`。
+1. 把 `MiniMaxModelClient` 的默认 model 改成另一个 MiniMax 模型，但不要改 `ResearchAgent.run`。
 2. 给 `TraceEvent` 增加 `duration_ms`，并思考哪些事件能自然记录耗时。
 3. 用 [`outputs/skill-agent-harness-reviewer.md`](../outputs/skill-agent-harness-reviewer.md) 审查你自己的 agent 项目，列出最缺的两个 Trace event。
 

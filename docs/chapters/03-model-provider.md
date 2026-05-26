@@ -108,11 +108,13 @@ class ModelClient(Protocol):
 
 这个边界让教程后续可以一直使用 deterministic provider。它也让你在真实项目里先写 mock、echo、replay provider，再接真实 SDK。Provider 抽象的成熟标志不是支持最多厂商，而是 Agent Loop 不需要知道自己正在用哪个厂商。
 
+仓库最终版已经包含一个真实 provider：`harness/providers.py` 里的 `MiniMaxModelClient`。它使用 MiniMax 的 OpenAI-compatible chat completions API，但仍然实现同一个 `complete(messages) -> dict` 协议。
+
 ## Exercises
 
 1. 新增一个 `FailingModelClient`，让它抛出异常，观察当前章节是否能处理这个失败。
 2. 新增 `usage` 字段，思考它应该进入 response、Trace，还是 Run Record。
-3. 把 `EchoModelClient` 用作 debug provider，检查 messages 是否包含你预期的用户任务。
+3. 设置 `MINIMAX_API_KEY`，运行 `python3 -m harness run --provider minimax --model MiniMax-M2.7`，观察真实 provider 的 Trace 是否仍然保留工具证据。
 
 ## 常见误区
 

@@ -24,3 +24,12 @@ python3 -m harness run --scenario happy_path
 python3 -m harness diagnose
 python3 -m unittest discover tests
 ```
+
+如果你设置了 `MINIMAX_API_KEY`，可以跑真实 provider smoke test：
+
+```bash
+python3 -m harness run --provider minimax --model MiniMax-M2.7 --output traces/minimax/latest-run.json
+python3 examples/minimax_smoke.py
+```
+
+如果网络较慢，可以临时设置 `MINIMAX_TIMEOUT=90` 或 `MINIMAX_RETRIES=2`。

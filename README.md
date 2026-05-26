@@ -6,7 +6,8 @@
   <a href="https://maxliux5.github.io/learn-harness-by-example/"><img src="https://img.shields.io/badge/docs-GitHub_Pages-0f766e?style=flat-square&labelColor=f8f7f3" alt="GitHub Pages"></a>
   <a href="ROADMAP.md"><img src="https://img.shields.io/badge/chapters-11-a16207?style=flat-square&labelColor=f8f7f3" alt="11 chapters"></a>
   <a href="cases/failure_corpus.json"><img src="https://img.shields.io/badge/failure_cases-9-be123c?style=flat-square&labelColor=f8f7f3" alt="9 failure cases"></a>
-  <a href="pyproject.toml"><img src="https://img.shields.io/badge/API_keys-0-1b1d1f?style=flat-square&labelColor=f8f7f3" alt="No API keys required"></a>
+  <a href="pyproject.toml"><img src="https://img.shields.io/badge/default_API_keys-0-1b1d1f?style=flat-square&labelColor=f8f7f3" alt="No API keys required by default"></a>
+  <a href="examples/minimax_smoke.py"><img src="https://img.shields.io/badge/real_provider-MiniMax_M2.7-be123c?style=flat-square&labelColor=f8f7f3" alt="MiniMax provider"></a>
 </p>
 
 Build the debugging, eval, and replay shell every serious agent eventually needs.
@@ -28,7 +29,7 @@ The tutorial chapters are written in Chinese, with core engineering terms such a
 | Layer | What you implement | Why it matters |
 | --- | --- | --- |
 | Agent loop | `Agent.run(task)` with a fixed control flow | Gives the project one place to reason about behavior |
-| Provider boundary | `ModelClient` protocol and deterministic doubles | Lets you test agent logic without a live model |
+| Provider boundary | `ModelClient`, deterministic doubles, and optional MiniMax | Lets you test offline, then smoke-test a real model |
 | Tools | `Tool` definitions, args, return values, errors | Makes external evidence visible instead of magical |
 | State | `RunState` with messages, answer, errors, trace | Turns one run into a durable object |
 | Trace | `TraceEvent` timeline | Shows what happened before the final answer |
@@ -113,6 +114,28 @@ learn-harness run --scenario eval_false_positive --no-save
 
 All examples use the Python standard library. The default model is a deterministic scenario double, so you do not need an API key to learn the harness mechanics.
 
+**Option D: run a real MiniMax provider smoke test.**
+
+The real provider uses MiniMax's OpenAI-compatible chat completions API. Set one env var, then run the same harness against a live model:
+
+```bash
+export MINIMAX_API_KEY=...
+python3 -m harness run --provider minimax --model MiniMax-M2.7 --output traces/minimax/latest-run.json
+python3 examples/minimax_smoke.py
+```
+
+Supported env vars:
+
+| Env var | Default | Purpose |
+| --- | --- | --- |
+| `MINIMAX_API_KEY` | required for real provider | Bearer token |
+| `MINIMAX_MODEL` | `MiniMax-M2.7` | Model name |
+| `MINIMAX_BASE_URL` | `https://api.minimax.io/v1` | OpenAI-compatible base URL |
+| `MINIMAX_TIMEOUT` | `60` | HTTP timeout in seconds |
+| `MINIMAX_RETRIES` | `1` | Retry count for transient failures |
+
+The real path still uses the local `search` tool first, then calls MiniMax to synthesize the final answer from tool evidence. This keeps the tutorial's key invariant intact: even a live model run should leave `tool.called`, `tool.returned`, and `run.completed` in the trace.
+
 ## Every Chapter Ships Something
 
 This is not only a reading path. The repo contains artifacts you can reuse:
@@ -120,6 +143,7 @@ This is not only a reading path. The repo contains artifacts you can reuse:
 | Artifact | Path | Use it for |
 | --- | --- | --- |
 | Runnable chapter scripts | [examples/](examples/) | Learn one concept at a time |
+| Real provider smoke test | [examples/minimax_smoke.py](examples/minimax_smoke.py) | Verify the harness with MiniMax |
 | Reusable harness package | [harness/](harness/) | Fork into a starter agent project |
 | Failure corpus | [cases/failure_corpus.json](cases/failure_corpus.json) | Regression cases for messy agent behavior |
 | Trace and replay records | [traces/](traces/) | Examples of inspectable run artifacts |
@@ -204,7 +228,7 @@ python3 -m harness diagnose
 | 07 | [从 Demo 走向 Eval](docs/chapters/07-eval.md) | `python3 examples/ch07_eval.py` | eval report |
 | 08 | [失败案例驱动改进](docs/chapters/08-failure-driven.md) | `python3 examples/ch08_failure_driven.py` | failure checks |
 | 09 | [Replay、对比和版本化](docs/chapters/09-replay-compare.md) | `python3 examples/ch09_replay_compare.py` | replay records |
-| 10 | [整理成一个最小 Harness 项目](docs/chapters/10-final-project.md) | `python3 examples/ch10_research_harness.py` | reusable package |
+| 10 | [整理成一个最小 Harness 项目](docs/chapters/10-final-project.md) | `python3 examples/ch10_research_harness.py` | reusable package + MiniMax provider |
 
 ## Quality Bar
 

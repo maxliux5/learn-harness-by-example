@@ -1,0 +1,124 @@
+{
+  "config": {
+    "agent_version": "MiniMax-M2.7",
+    "provider": "minimax",
+    "eval_version": "rules-v2"
+  },
+  "task": "解释 agent harness 的作用，必须基于资料回答",
+  "answer": "基于资料：\n\nAgent Harness 是用于 **运行、约束、观察、评测和复现 Agent 行为** 的框架或工具。\n\n具体来说：\n\n1. **运行**：支持 Agent 任务的执行\n2. **约束**：对 Agent 的行为设定边界或限制\n3. **观察**：监控和记录 Agent 的执行过程\n4. **评测**：评估 Agent 输出的质量或效果\n5. **复现**：支持重复运行相同任务以验证结果一致性\n\n这些功能使得开发者能够系统性地测试和优化 Agent 行为。",
+  "errors": [],
+  "trace": [
+    {
+      "name": "run.started",
+      "payload": {
+        "task": "解释 agent harness 的作用，必须基于资料回答"
+      },
+      "timestamp": "2026-05-26T13:28:27.042857+00:00"
+    },
+    {
+      "name": "model.called",
+      "payload": {
+        "step": 0,
+        "message_count": 1
+      },
+      "timestamp": "2026-05-26T13:28:27.043087+00:00"
+    },
+    {
+      "name": "model.returned",
+      "payload": {
+        "step": 0,
+        "response_type": "tool_call",
+        "raw": {
+          "type": "tool_call",
+          "tool": "search",
+          "args": {
+            "query": "agent harness"
+          }
+        }
+      },
+      "timestamp": "2026-05-26T13:28:27.043091+00:00"
+    },
+    {
+      "name": "tool.called",
+      "payload": {
+        "tool": "search",
+        "args": {
+          "query": "agent harness"
+        }
+      },
+      "timestamp": "2026-05-26T13:28:27.043094+00:00"
+    },
+    {
+      "name": "tool.returned",
+      "payload": {
+        "tool": "search",
+        "result": {
+          "content": "Agent Harness 负责运行、约束、观察、评测和复现 Agent 行为。",
+          "ok": true
+        }
+      },
+      "timestamp": "2026-05-26T13:28:27.043098+00:00"
+    },
+    {
+      "name": "model.called",
+      "payload": {
+        "step": 1,
+        "message_count": 2
+      },
+      "timestamp": "2026-05-26T13:28:27.043100+00:00"
+    },
+    {
+      "name": "model.returned",
+      "payload": {
+        "step": 1,
+        "response_type": "final",
+        "raw": {
+          "type": "final",
+          "content": "基于资料：\n\nAgent Harness 是用于 **运行、约束、观察、评测和复现 Agent 行为** 的框架或工具。\n\n具体来说：\n\n1. **运行**：支持 Agent 任务的执行\n2. **约束**：对 Agent 的行为设定边界或限制\n3. **观察**：监控和记录 Agent 的执行过程\n4. **评测**：评估 Agent 输出的质量或效果\n5. **复现**：支持重复运行相同任务以验证结果一致性\n\n这些功能使得开发者能够系统性地测试和优化 Agent 行为。",
+          "raw": {
+            "provider": "minimax",
+            "model": "MiniMax-M2.7",
+            "usage": {
+              "total_tokens": 244,
+              "total_characters": 0,
+              "prompt_tokens": 80,
+              "completion_tokens": 164,
+              "prompt_tokens_details": {
+                "cached_tokens": 64
+              }
+            }
+          }
+        }
+      },
+      "timestamp": "2026-05-26T13:28:33.054278+00:00"
+    },
+    {
+      "name": "run.completed",
+      "payload": {
+        "answer": "基于资料：\n\nAgent Harness 是用于 **运行、约束、观察、评测和复现 Agent 行为** 的框架或工具。\n\n具体来说：\n\n1. **运行**：支持 Agent 任务的执行\n2. **约束**：对 Agent 的行为设定边界或限制\n3. **观察**：监控和记录 Agent 的执行过程\n4. **评测**：评估 Agent 输出的质量或效果\n5. **复现**：支持重复运行相同任务以验证结果一致性\n\n这些功能使得开发者能够系统性地测试和优化 Agent 行为。"
+      },
+      "timestamp": "2026-05-26T13:28:33.054293+00:00"
+    }
+  ],
+  "eval_report": {
+    "name": "minimax requires local evidence",
+    "passed": true,
+    "missing_terms": [],
+    "forbidden_terms": [],
+    "missing_trace": [],
+    "forbidden_trace": [],
+    "missing_error_terms": [],
+    "answer": "基于资料：\n\nAgent Harness 是用于 **运行、约束、观察、评测和复现 Agent 行为** 的框架或工具。\n\n具体来说：\n\n1. **运行**：支持 Agent 任务的执行\n2. **约束**：对 Agent 的行为设定边界或限制\n3. **观察**：监控和记录 Agent 的执行过程\n4. **评测**：评估 Agent 输出的质量或效果\n5. **复现**：支持重复运行相同任务以验证结果一致性\n\n这些功能使得开发者能够系统性地测试和优化 Agent 行为。",
+    "errors": [],
+    "trace_names": [
+      "run.started",
+      "model.called",
+      "model.returned",
+      "tool.called",
+      "tool.returned",
+      "model.called",
+      "model.returned",
+      "run.completed"
+    ]
+  }
+}
